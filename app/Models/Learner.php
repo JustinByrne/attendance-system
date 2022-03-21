@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Learner extends Model
 {
+    protected $fillable = ["name"];
+
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class);
