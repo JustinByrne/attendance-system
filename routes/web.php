@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LearnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get("/", function () {
+    return view("welcome");
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get("/dashboard", function () {
+    return view("dashboard");
+})
+    ->middleware(["auth"])
+    ->name("dashboard");
 
-require __DIR__.'/auth.php';
+Route::get("/learners", [LearnerController::class, "index"])
+    ->middleware(["auth"])
+    ->name("learners.index");
+
+Route::post("/learners", [LearnerController::class, "store"])
+    ->middleware(["auth"])
+    ->name("learners.store");
+
+require __DIR__ . "/auth.php";
