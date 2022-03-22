@@ -16,8 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string("name");
             $table->date("start_date");
-            $table->integer("number_of_days")->default(1);
-            $table->boolean("weekends")->default(false);
+            $table->date("end_date");
             $table->timestamps();
         });
     }
