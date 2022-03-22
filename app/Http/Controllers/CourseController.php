@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Learner;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -25,5 +26,28 @@ class CourseController extends Controller
         ]);
 
         return redirect()->route("courses.index");
+    }
+
+    public function show(Course $course): View
+    {
+        $courseLearners = $course
+            ->learners()
+            ->pluck("learner_id")
+            ->toArray();
+
+        $learners = Learner::whereNotIn("id", $courseLearners)->get();
+
+        return view("courses.show")
+            ->with("course", $course)
+            ->with("learners", $learners);
+    }
+
+    public function addLearner(
+        Request $request,
+        Course $course
+    ): RedirectResponse {
+        $course->learners()->attach($request->input("learner_id"));
+
+        return redirect()->route("courses.show", $course);
     }
 }
