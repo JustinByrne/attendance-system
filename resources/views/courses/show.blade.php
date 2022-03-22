@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $course->name }} - {{ $course->start_date->diffInDays($course->end_date) }} days
+            {{ $course->name }} ... {{ $course->start_date->format("d/m/y") }} - {{ $course->end_date->format("d/m/y") }}
         </h2>
     </x-slot>
 
