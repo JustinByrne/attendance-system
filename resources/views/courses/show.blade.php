@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $course->name }}
+            {{ $course->name }} - {{ $course->start_date->diffInDays($course->end_date) }} days
         </h2>
     </x-slot>
 
@@ -26,11 +26,26 @@
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <ul class="list-disc list-inside">
-                    @foreach ($course->learners as $learner)
-                        <li>{{ $learner->name }}</li>
-                    @endforeach
-                    </ul>
+                    <table class="w-full table-fixed">
+                        <thead>
+                            <tr>
+                                <th>Learner name</th>
+                                @foreach ($dates as $date)
+                                    <th>{{ $date->format('d/m/y') }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($course->learners as $learner)
+                                <tr>
+                                    <td>{{ $learner->name }}</td>
+                                    @foreach ($dates as $date)
+                                        <td class="text-center">-</td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

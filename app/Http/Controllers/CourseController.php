@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Learner;
+use Carbon\CarbonPeriod;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -37,9 +38,12 @@ class CourseController extends Controller
 
         $learners = Learner::whereNotIn("id", $courseLearners)->get();
 
+        $dates = CarbonPeriod::create($course->start_date, $course->end_date);
+
         return view("courses.show")
             ->with("course", $course)
-            ->with("learners", $learners);
+            ->with("learners", $learners)
+            ->with("dates", $dates);
     }
 
     public function addLearner(
