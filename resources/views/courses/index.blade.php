@@ -31,7 +31,11 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <ul class="list-disc list-inside">
                     @foreach ($courses as $course)
-                        <li>{{ $course->name }}</li>
+                        <li>
+                            <a href="{{ route("courses.show", $course) }}">
+                                {{ $course->name }}
+                            </a>
+                        </li>
                     @endforeach
                     </ul>
                 </div>
