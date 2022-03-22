@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Course extends Model
 {
+    protected $fillable = ["name", "start_date", "end_date"];
+
     public function learners(): BelongsToMany
     {
         return $this->belongsToMany(Learner::class);
