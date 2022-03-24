@@ -40,7 +40,9 @@
                                 <tr>
                                     <td>{{ $learner->name }}</td>
                                     @foreach ($dates as $date)
-                                        <td class="text-center">-</td>
+                                        <td class="text-center">
+                                            {{ $learner->attendances->where('attendance_date', $date->format('Y-m-d'))->first()?->attended ?? "-" }}
+                                        </td>
                                     @endforeach
                                 </tr>
                             @endforeach
