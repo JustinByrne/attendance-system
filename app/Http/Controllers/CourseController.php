@@ -8,6 +8,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Database\Query\Builder;
 
 class CourseController extends Controller
 {
@@ -31,6 +32,12 @@ class CourseController extends Controller
 
     public function show(Course $course): View
     {
+        $course->load([
+            "learners.attendances" => function (Builder $query) use ($course) {
+                $query->where("course_id", $course->id);
+            },
+        ]);
+
         $courseLearners = $course
             ->learners()
             ->pluck("learner_id")
