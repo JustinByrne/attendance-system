@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Learner extends Model
@@ -14,13 +15,8 @@ class Learner extends Model
         return $this->belongsToMany(Course::class);
     }
 
-    public function attendance(): BelongsToMany
+    public function attendances(): HasMany
     {
-        return $this->belongsToMany(
-            Course::class,
-            "attendance_learner",
-            "course_id",
-            "learner_id"
-        )->withPivot("attendance_date", "attended");
+        return $this->hasMany(Attendance::class);
     }
 }
