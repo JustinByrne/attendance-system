@@ -36,6 +36,7 @@ class CourseController extends Controller
             "learners.attendances" => function (Builder $query) use ($course) {
                 $query->where("course_id", $course->id);
             },
+            "learners.attendances.attendanceStatus",
         ]);
 
         $courseLearners = $course
