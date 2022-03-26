@@ -40,8 +40,8 @@
                                 <tr>
                                     <td>{{ $learner->name }}</td>
                                     @foreach ($dates as $date)
-                                        <td class="text-center">
-                                            {{ $learner->attendances->where('attendance_date', $date->format('Y-m-d'))->first()?->attended ?? "-" }}
+                                        <td class="text-center" title="{{ $learner->attendances->where('attendance_date', $date->format('Y-m-d'))->first()?->attendanceStatus->description ?? "-" }}">
+                                            {{ $learner->attendances->where('attendance_date', $date->format('Y-m-d'))->first()?->attendanceStatus->code ?? "-" }}
                                         </td>
                                     @endforeach
                                 </tr>
