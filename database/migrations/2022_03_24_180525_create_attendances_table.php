@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignId("course_id")->constrained();
             $table->foreignId("learner_id")->constrained();
             $table->date("attendance_date");
-            $table->boolean("attended")->default(false);
+            $table->foreignId("attendance_status_id")->constrained();
             $table->timestamps();
         });
     }
