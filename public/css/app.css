@@ -668,11 +668,11 @@ select {
 .mt-3 {
   margin-top: 0.75rem;
 }
-.mt-6 {
-  margin-top: 1.5rem;
-}
 .mb-8 {
   margin-bottom: 2rem;
+}
+.mt-6 {
+  margin-top: 1.5rem;
 }
 .block {
   display: block;
@@ -800,9 +800,6 @@ select {
 }
 .items-center {
   align-items: center;
-}
-.justify-start {
-  justify-content: flex-start;
 }
 .justify-end {
   justify-content: flex-end;
@@ -949,6 +946,10 @@ select {
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+}
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 .pt-8 {
   padding-top: 2rem;
@@ -1153,6 +1154,22 @@ select {
 }
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+.odd\:bg-white:nth-child(odd) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.even\:bg-red-100:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+}
+.even\:bg-slate-100:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+.even\:bg-slate-50:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity));
 }
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;
