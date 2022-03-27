@@ -53,4 +53,11 @@ Route::get("/courses/{course}/register", [CourseController::class, "register"])
     ->middleware(["auth"])
     ->name("courses.register");
 
+Route::post("/courses/{course}/register", [
+    CourseController::class,
+    "storeRegister",
+])
+    ->middleware(["auth"])
+    ->name("courses.storeRegister");
+
 require __DIR__ . "/auth.php";
