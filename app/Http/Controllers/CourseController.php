@@ -6,7 +6,9 @@ use App\Models\Course;
 use App\Models\Learner;
 use Carbon\CarbonPeriod;
 use Illuminate\View\View;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
+use App\Models\AttendanceStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\Database\Query\Builder;
 
@@ -59,6 +61,38 @@ class CourseController extends Controller
         Course $course
     ): RedirectResponse {
         $course->learners()->attach($request->input("learner_id"));
+
+        return redirect()->route("courses.show", $course);
+    }
+
+    public function register(Course $course): View
+    {
+        $course->load(["learners"]);
+        $statuses = AttendanceStatus::orderBy("code")->get();
+
+        return view("courses.register")
+            ->with("course", $course)
+            ->with("statuses", $statuses);
+    }
+
+    public function storeRegister(
+        Request $request,
+        Course $course
+    ): RedirectResponse {
+        $attendance = [];
+
+        foreach ($request->attendance as $learner => $status) {
+            $attendance[] = [
+                "learner_id" => $learner,
+                "course_id" => $course->id,
+                "attendance_date" => $request->attendance_date,
+                "attendance_status_id" => $status,
+                "created_at" => now(),
+                "updated_at" => now(),
+            ];
+        }
+
+        Attendance::insert($attendance);
 
         return redirect()->route("courses.show", $course);
     }
