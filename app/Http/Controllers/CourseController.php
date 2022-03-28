@@ -10,6 +10,7 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Models\AttendanceStatus;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Contracts\Database\Query\Builder;
 
 class CourseController extends Controller
@@ -76,7 +77,7 @@ class CourseController extends Controller
     }
 
     public function storeRegister(
-        Request $request,
+        RegisterRequest $request,
         Course $course
     ): RedirectResponse {
         $attendance = [];
@@ -86,7 +87,7 @@ class CourseController extends Controller
                 "learner_id" => $learner,
                 "course_id" => $course->id,
                 "attendance_date" => $request->attendance_date,
-                "attendance_status_id" => $status,
+                "attendance_status_id" => $status["status_id"],
                 "created_at" => now(),
                 "updated_at" => now(),
             ];

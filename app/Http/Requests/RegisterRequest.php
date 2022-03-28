@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
             "attendance_date" => "required",
             "attendance" => "required|array",
             "attendance.*" => "required|array|exists:App\Models\Learner,id",
-            "attendance.*.status" =>
+            "attendance.*.status_id" =>
                 "required|exists:App\Models\AttendanceStatus,id",
         ];
     }

@@ -26,15 +26,15 @@
                                         <td>
                                             <select
                                                 @if ($loop->first) autofocus @endif
-                                                name="attendance[{{ $learner->id }}][status]"
+                                                name="attendance[{{ $learner->id }}][status_id]"
                                                 required
                                                 @class([
-                                                    'border-red-400 bg-rose-100' => $errors->has('attendance.' . $learner->id . '.*')
+                                                    'border-red-400 bg-rose-100' => $errors->has('attendance.' . $learner->id . '.status_id')
                                                 ])
                                             >
                                                 <option selected disabled value="">-</option>
                                                 @foreach ($statuses as $status)
-                                                    <option value="{{ $status->id }}" @selected(old('attendance.' . $learner->id . '.status') == $status->id)>{{ $status->code }}</option>
+                                                    <option value="{{ $status->id }}" @selected(old('attendance.' . $learner->id . '.status_id') == $status->id)>{{ $status->code }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
