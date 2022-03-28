@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <form action="{{ route('courses.storeRegister', $course) }}" method="POST">
                         @csrf
-                        <input type="date" name="attendance_date" required>
+                        <input type="date" name="attendance_date" value="{{ old('attendance_date') }}" required>
                         <table class="w-full table-fixed">
                             <thead>
                                 <tr>
@@ -24,10 +24,17 @@
                                     <tr class="odd:bg-white even:bg-slate-50">
                                         <td class="px-2 py-3">{{ $learner->name }}</td>
                                         <td>
-                                            <select @if ($loop->first) autofocus @endif name="attendance[{{ $learner->id }}]" required>
+                                            <select
+                                                @if ($loop->first) autofocus @endif
+                                                name="attendance[{{ $learner->id }}][status]"
+                                                required
+                                                @class([
+                                                    'border-red-400 bg-rose-100' => $errors->has('attendance.' . $learner->id . '.*')
+                                                ])
+                                            >
                                                 <option selected disabled value="">-</option>
                                                 @foreach ($statuses as $status)
-                                                    <option value="{{ $status->id }}">{{ $status->code }}</option>
+                                                    <option value="{{ $status->id }}" @selected(old('attendance.' . $learner->id . '.status') == $status->id)>{{ $status->code }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
