@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Learner;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
+use App\Http\Requests\LearnerRequest;
 use Illuminate\Http\RedirectResponse;
 
 class LearnerController extends Controller
@@ -16,11 +16,9 @@ class LearnerController extends Controller
         return view("learners.index")->with("learners", $learners);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(LearnerRequest $request): RedirectResponse
     {
-        learner::create([
-            "name" => $request->input("name"),
-        ]);
+        learner::create($request->validated());
 
         return redirect()->route("learners.index");
     }
