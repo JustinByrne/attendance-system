@@ -12,7 +12,7 @@ use App\Http\Requests\CourseRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\AddLearnerRequest;
-use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class CourseController extends Controller
 {
