@@ -7,10 +7,11 @@ use App\Models\Learner;
 use Carbon\CarbonPeriod;
 use Illuminate\View\View;
 use App\Models\Attendance;
-use Illuminate\Http\Request;
 use App\Models\AttendanceStatus;
+use App\Http\Requests\CourseRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\AddLearnerRequest;
 use Illuminate\Contracts\Database\Query\Builder;
 
 class CourseController extends Controller
@@ -22,13 +23,9 @@ class CourseController extends Controller
         return view("courses.index")->with("courses", $courses);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(CourseRequest $request): RedirectResponse
     {
-        Course::create([
-            "name" => $request->input("name"),
-            "start_date" => $request->input("start_date"),
-            "end_date" => $request->input("end_date"),
-        ]);
+        Course::create($request->validated());
 
         return redirect()->route("courses.index");
     }
@@ -58,10 +55,10 @@ class CourseController extends Controller
     }
 
     public function addLearner(
-        Request $request,
+        AddLearnerRequest $request,
         Course $course
     ): RedirectResponse {
-        $course->learners()->attach($request->input("learner_id"));
+        $course->learners()->attach($request->validated());
 
         return redirect()->route("courses.show", $course);
     }
