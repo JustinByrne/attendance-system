@@ -56,7 +56,7 @@ class CourseController extends Controller
 
     public function addLearner(
         AddLearnerRequest $request,
-        Course $course
+        Course $course,
     ): RedirectResponse {
         $course->learners()->attach($request->validated());
 
@@ -75,7 +75,7 @@ class CourseController extends Controller
 
     public function storeRegister(
         RegisterRequest $request,
-        Course $course
+        Course $course,
     ): RedirectResponse {
         $attendance = [];
 
