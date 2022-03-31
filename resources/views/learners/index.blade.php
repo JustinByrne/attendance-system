@@ -5,27 +5,5 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <form action="{{ route('learners.store') }}" method="POST">
-                        @csrf
-                        <x-label>Name</x-label>
-                        <input type="text" id="name" name="name">
-                        <x-button type="submit">Add</x-button>
-                    </form>
-                </div>
-            </div>
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <ul class="list-disc list-inside">
-                    @foreach ($learners as $learner)
-                        <li>{{ $learner->name }}</li>
-                    @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    @livewire('learners')
 </x-app-layout>

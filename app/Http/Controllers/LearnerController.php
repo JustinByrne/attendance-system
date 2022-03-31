@@ -11,9 +11,7 @@ class LearnerController extends Controller
 {
     public function index(): View
     {
-        $learners = Learner::all();
-
-        return view("learners.index")->with("learners", $learners);
+        return view("learners.index");
     }
 
     public function store(LearnerRequest $request): RedirectResponse
