@@ -7,8 +7,10 @@ use App\Models\Learner;
 use Carbon\CarbonPeriod;
 use Illuminate\View\View;
 use App\Models\Attendance;
+use App\Exports\RegisterExport;
 use App\Models\AttendanceStatus;
 use App\Http\Requests\CourseRequest;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\AddLearnerRequest;
@@ -71,6 +73,11 @@ class CourseController extends Controller
         return view("courses.register")
             ->with("course", $course)
             ->with("statuses", $statuses);
+    }
+
+    public function downloadRegister(Course $course)
+    {
+        return Excel::download(new RegisterExport($course), "register.xlsx");
     }
 
     public function storeRegister(
