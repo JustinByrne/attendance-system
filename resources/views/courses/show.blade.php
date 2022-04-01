@@ -26,29 +26,7 @@
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <a href="{{ route('courses.register', $course) }}" class="float-right mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">Take register</a>
-                    <table class="w-full table-fixed">
-                        <thead>
-                            <tr>
-                                <th>Learner name</th>
-                                @foreach ($dates as $date)
-                                    <th>{{ $date->format('d/m/y') }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($course->learners as $learner)
-                                <tr class="odd:bg-white even:bg-slate-50">
-                                    <td class="px-2 py-3">{{ $learner->name }}</td>
-                                    @foreach ($dates as $date)
-                                        <td class="text-center" title="{{ $learner->attendances->where('attendance_date', $date->format('Y-m-d'))->first()?->attendanceStatus->description ?? "-" }}">
-                                            {{ $learner->attendances->where('attendance_date', $date->format('Y-m-d'))->first()?->attendanceStatus->code ?? "-" }}
-                                        </td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include("courses.table")
                 </div>
             </div>
         </div>
