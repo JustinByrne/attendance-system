@@ -53,6 +53,13 @@ Route::get("/courses/{course}/register", [CourseController::class, "register"])
     ->middleware(["auth"])
     ->name("courses.register");
 
+Route::get("/courses/{course}/register/download", [
+    CourseController::class,
+    "register",
+])
+    ->middleware(["auth"])
+    ->name("courses.register.download");
+
 Route::post("/courses/{course}/register", [
     CourseController::class,
     "storeRegister",
