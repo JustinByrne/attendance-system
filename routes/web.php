@@ -55,7 +55,7 @@ Route::get("/courses/{course}/register", [CourseController::class, "register"])
 
 Route::get("/courses/{course}/register/download", [
     CourseController::class,
-    "register",
+    "downloadRegister",
 ])
     ->middleware(["auth"])
     ->name("courses.register.download");
