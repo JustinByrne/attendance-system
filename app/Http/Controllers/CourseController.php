@@ -75,7 +75,7 @@ class CourseController extends Controller
             ->with("statuses", $statuses);
     }
 
-    public function downloadRegister(Course $course)
+    public function downloadRegister($course)
     {
         return Excel::download(new RegisterExport($course), "register.xlsx");
     }
