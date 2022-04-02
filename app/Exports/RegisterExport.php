@@ -14,7 +14,7 @@ class RegisterExport implements FromView
 
     public function __construct($course)
     {
-        $this->course = Course::find($course);
+        $this->course = Course::findorFail($course);
     }
 
     public function view(): View
