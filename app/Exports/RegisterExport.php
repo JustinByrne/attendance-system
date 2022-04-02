@@ -19,19 +19,20 @@ class RegisterExport implements FromView
 
     public function view(): View
     {
-        $course = $this->course;
-
-        $course->load([
-            "learners.attendances" => function ($query) use ($course) {
-                $query->where("course_id", $course->id);
+        $this->course->load([
+            "learners.attendances" => function ($query) {
+                $query->where("course_id", $this->course->id);
             },
             "learners.attendances.attendanceStatus",
         ]);
 
-        $dates = CarbonPeriod::create($course->start_date, $course->end_date);
+        $dates = CarbonPeriod::create(
+            $this->course->start_date,
+            $this->course->end_date,
+        );
 
         return view("courses.table", [
-            "course" => $course,
+            "course" => $this->course,
             "dates" => $dates,
         ]);
     }
