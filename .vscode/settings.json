@@ -1,0 +1,18 @@
+{
+    //editor
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+
+    // php namespace resolver
+    "namespaceResolver.autoSort": true,
+    "namespaceResolver.sortAlphabetically": true,
+
+    // php cs fixer
+    "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
+    "php-cs-fixer.onsave": true,
+    "[php]": {
+        "editor.defaultFormatter": "junstyle.php-cs-fixer"
+    }
+}
