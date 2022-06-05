@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\RegisterExport;
+use App\Http\Requests\AddLearnerRequest;
+use App\Http\Requests\CourseRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\Attendance;
+use App\Models\AttendanceStatus;
 use App\Models\Course;
 use App\Models\Learner;
 use Carbon\CarbonPeriod;
-use Illuminate\View\View;
-use App\Models\Attendance;
-use App\Exports\RegisterExport;
-use App\Models\AttendanceStatus;
-use App\Http\Requests\CourseRequest;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\AddLearnerRequest;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CourseController extends Controller
 {
@@ -22,38 +22,38 @@ class CourseController extends Controller
     {
         $courses = Course::all();
 
-        return view("courses.index")->with("courses", $courses);
+        return view('courses.index')->with('courses', $courses);
     }
 
     public function store(CourseRequest $request): RedirectResponse
     {
         Course::create($request->validated());
 
-        return redirect()->route("courses.index");
+        return redirect()->route('courses.index');
     }
 
     public function show(Course $course): View
     {
         $course->load([
-            "learners.attendances" => function (Builder $query) use ($course) {
-                $query->where("course_id", $course->id);
+            'learners.attendances' => function (Builder $query) use ($course) {
+                $query->where('course_id', $course->id);
             },
-            "learners.attendances.attendanceStatus",
+            'learners.attendances.attendanceStatus',
         ]);
 
         $courseLearners = $course
             ->learners()
-            ->pluck("learner_id")
+            ->pluck('learner_id')
             ->toArray();
 
-        $learners = Learner::whereNotIn("id", $courseLearners)->get();
+        $learners = Learner::whereNotIn('id', $courseLearners)->get();
 
         $dates = CarbonPeriod::create($course->start_date, $course->end_date);
 
-        return view("courses.show")
-            ->with("course", $course)
-            ->with("learners", $learners)
-            ->with("dates", $dates);
+        return view('courses.show')
+            ->with('course', $course)
+            ->with('learners', $learners)
+            ->with('dates', $dates);
     }
 
     public function addLearner(
@@ -62,22 +62,22 @@ class CourseController extends Controller
     ): RedirectResponse {
         $course->learners()->attach($request->validated());
 
-        return redirect()->route("courses.show", $course);
+        return redirect()->route('courses.show', $course);
     }
 
     public function register(Course $course): View
     {
-        $course->load(["learners"]);
-        $statuses = AttendanceStatus::orderBy("code")->get();
+        $course->load(['learners']);
+        $statuses = AttendanceStatus::orderBy('code')->get();
 
-        return view("courses.register")
-            ->with("course", $course)
-            ->with("statuses", $statuses);
+        return view('courses.register')
+            ->with('course', $course)
+            ->with('statuses', $statuses);
     }
 
     public function downloadRegister($course)
     {
-        return Excel::download(new RegisterExport($course), "register.xlsx");
+        return Excel::download(new RegisterExport($course), 'register.xlsx');
     }
 
     public function storeRegister(
@@ -88,17 +88,17 @@ class CourseController extends Controller
 
         foreach ($request->attendance as $learner => $status) {
             $attendance[] = [
-                "learner_id" => $learner,
-                "course_id" => $course->id,
-                "attendance_date" => $request->attendance_date,
-                "attendance_status_id" => $status["status_id"],
-                "created_at" => now(),
-                "updated_at" => now(),
+                'learner_id' => $learner,
+                'course_id' => $course->id,
+                'attendance_date' => $request->attendance_date,
+                'attendance_status_id' => $status['status_id'],
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
 
         Attendance::insert($attendance);
 
-        return redirect()->route("courses.show", $course);
+        return redirect()->route('courses.show', $course);
     }
 }

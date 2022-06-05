@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LearnerController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,56 +15,56 @@ use App\Http\Controllers\LearnerController;
 |
 */
 
-Route::get("/", function () {
-    return view("welcome");
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get("/dashboard", function () {
-    return view("dashboard");
+Route::get('/dashboard', function () {
+    return view('dashboard');
 })
-    ->middleware(["auth"])
-    ->name("dashboard");
+    ->middleware(['auth'])
+    ->name('dashboard');
 
-Route::get("/learners", [LearnerController::class, "index"])
-    ->middleware(["auth"])
-    ->name("learners.index");
+Route::get('/learners', [LearnerController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('learners.index');
 
-Route::post("/learners", [LearnerController::class, "store"])
-    ->middleware(["auth"])
-    ->name("learners.store");
+Route::post('/learners', [LearnerController::class, 'store'])
+    ->middleware(['auth'])
+    ->name('learners.store');
 
-Route::get("/courses", [CourseController::class, "index"])
-    ->middleware(["auth"])
-    ->name("courses.index");
+Route::get('/courses', [CourseController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('courses.index');
 
-Route::post("/courses", [CourseController::class, "store"])
-    ->middleware(["auth"])
-    ->name("courses.store");
+Route::post('/courses', [CourseController::class, 'store'])
+    ->middleware(['auth'])
+    ->name('courses.store');
 
-Route::get("/courses/{course}", [CourseController::class, "show"])
-    ->middleware(["auth"])
-    ->name("courses.show");
+Route::get('/courses/{course}', [CourseController::class, 'show'])
+    ->middleware(['auth'])
+    ->name('courses.show');
 
-Route::post("/courses/{course}", [CourseController::class, "addLearner"])
-    ->middleware(["auth"])
-    ->name("courses.addLearner");
+Route::post('/courses/{course}', [CourseController::class, 'addLearner'])
+    ->middleware(['auth'])
+    ->name('courses.addLearner');
 
-Route::get("/courses/{course}/register", [CourseController::class, "register"])
-    ->middleware(["auth"])
-    ->name("courses.register");
+Route::get('/courses/{course}/register', [CourseController::class, 'register'])
+    ->middleware(['auth'])
+    ->name('courses.register');
 
-Route::get("/courses/{course}/register/download", [
+Route::get('/courses/{course}/register/download', [
     CourseController::class,
-    "downloadRegister",
+    'downloadRegister',
 ])
-    ->middleware(["auth"])
-    ->name("courses.register.download");
+    ->middleware(['auth'])
+    ->name('courses.register.download');
 
-Route::post("/courses/{course}/register", [
+Route::post('/courses/{course}/register', [
     CourseController::class,
-    "storeRegister",
+    'storeRegister',
 ])
-    ->middleware(["auth"])
-    ->name("courses.storeRegister");
+    ->middleware(['auth'])
+    ->name('courses.storeRegister');
 
-require __DIR__ . "/auth.php";
+require __DIR__.'/auth.php';

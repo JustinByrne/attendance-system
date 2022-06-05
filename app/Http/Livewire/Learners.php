@@ -9,8 +9,8 @@ class Learners extends Component
 {
     public function render()
     {
-        $learners = Learner::with("courses")->get();
+        $learners = Learner::with('courses')->get();
 
-        return view("livewire.learners")->with("learners", $learners);
+        return view('livewire.learners')->with('learners', $learners);
     }
 }

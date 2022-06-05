@@ -5,8 +5,8 @@ namespace App\Exports;
 use App\Models\Course;
 use Carbon\CarbonPeriod;
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Database\Eloquent\Builder;
+use Maatwebsite\Excel\Concerns\FromView;
 
 class RegisterExport implements FromView
 {
@@ -20,10 +20,10 @@ class RegisterExport implements FromView
     public function view(): View
     {
         $this->course->load([
-            "learners.attendances" => function ($query) {
-                $query->where("course_id", $this->course->id);
+            'learners.attendances' => function ($query) {
+                $query->where('course_id', $this->course->id);
             },
-            "learners.attendances.attendanceStatus",
+            'learners.attendances.attendanceStatus',
         ]);
 
         $dates = CarbonPeriod::create(
@@ -31,9 +31,9 @@ class RegisterExport implements FromView
             $this->course->end_date,
         );
 
-        return view("courses.table", [
-            "course" => $this->course,
-            "dates" => $dates,
+        return view('courses.table', [
+            'course' => $this->course,
+            'dates' => $dates,
         ]);
     }
 }

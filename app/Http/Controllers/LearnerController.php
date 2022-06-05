@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Learner;
-use Illuminate\View\View;
 use App\Http\Requests\LearnerRequest;
+use App\Models\Learner;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class LearnerController extends Controller
 {
     public function index(): View
     {
-        return view("learners.index");
+        return view('learners.index');
     }
 
     public function store(LearnerRequest $request): RedirectResponse
     {
         learner::create($request->validated());
 
-        return redirect()->route("learners.index");
+        return redirect()->route('learners.index');
     }
 }

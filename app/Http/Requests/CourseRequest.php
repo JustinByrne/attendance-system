@@ -24,9 +24,9 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string|max:255",
-            "start_date" => "required|date:Y-m-d",
-            "end_date" => "required|date:Y-m-d",
+            'name' => 'required|string|max:255',
+            'start_date' => 'required|date:Y-m-d',
+            'end_date' => 'required|date:Y-m-d',
         ];
     }
 }

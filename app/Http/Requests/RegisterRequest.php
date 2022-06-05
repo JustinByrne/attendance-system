@@ -24,11 +24,10 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            "attendance_date" => "required",
-            "attendance" => "required|array",
-            "attendance.*" => "required|array|exists:App\Models\Learner,id",
-            "attendance.*.status_id" =>
-                "required|exists:App\Models\AttendanceStatus,id",
+            'attendance_date' => 'required',
+            'attendance' => 'required|array',
+            'attendance.*' => "required|array|exists:App\Models\Learner,id",
+            'attendance.*.status_id' => "required|exists:App\Models\AttendanceStatus,id",
         ];
     }
 }

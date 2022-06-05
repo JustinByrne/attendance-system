@@ -24,7 +24,7 @@ class AddLearnerRequest extends FormRequest
     public function rules()
     {
         return [
-            "learner_id" => "required|exists:App\Models\Learner,id",
+            'learner_id' => "required|exists:App\Models\Learner,id",
         ];
     }
 }
