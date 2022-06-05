@@ -56,10 +56,8 @@ class CourseController extends Controller
             ->with('dates', $dates);
     }
 
-    public function addLearner(
-        AddLearnerRequest $request,
-        Course $course,
-    ): RedirectResponse {
+    public function addLearner(AddLearnerRequest $request, Course $course): RedirectResponse
+    {
         $course->learners()->attach($request->validated());
 
         return redirect()->route('courses.show', $course);
@@ -80,10 +78,8 @@ class CourseController extends Controller
         return Excel::download(new RegisterExport($course), 'register.xlsx');
     }
 
-    public function storeRegister(
-        RegisterRequest $request,
-        Course $course,
-    ): RedirectResponse {
+    public function storeRegister(RegisterRequest $request, Course $course): RedirectResponse
+    {
         $attendance = [];
 
         foreach ($request->attendance as $learner => $status) {
